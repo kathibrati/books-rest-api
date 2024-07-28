@@ -17,7 +17,11 @@ public class BookService {
 
     public List<Book> findBooks(String title) {
 
-        return bookRepository.findAll();
+        return bookRepository
+                .findAll()
+                .stream()
+                .filter(book -> book.getTitle().equals(title))
+                .toList();
     }
 
     public Optional<Book> findBookById(Long id) {

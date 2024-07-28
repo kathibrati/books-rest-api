@@ -28,6 +28,11 @@ class BookRepositoryTest {
                         .title("Lost Wheel")
                         .author("Wolfgang Aufpasser")
                         .year("2003")
+                        .build(),
+                Book.builder()
+                        .title("Lost Wheel")
+                        .author("Tyra Gone")
+                        .year("2001")
                         .build()
         );
         bookRepository.saveAll(books);
@@ -53,6 +58,15 @@ class BookRepositoryTest {
         assertThat(result.isPresent()).isTrue();
         assertThat(result.get().getYear()).isEqualTo("1990");
 
+    }
+
+    @Test
+    void findAllByTitle() {
+        List<Book> bookListWheels = bookRepository.findAllByTitle("Lost Wheel");
+        List<Book> bookList = bookRepository.findAllByTitle("Lost");
+
+        assertThat(bookListWheels.size()).isGreaterThan(1);
+        assertThat(bookList.size()).isEqualTo(0);
     }
 
 }

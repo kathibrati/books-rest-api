@@ -51,4 +51,10 @@ class BookControllerTest {
         mockMvc.perform(get("/api/books/99")).andExpect(status().isNotFound());
 
     }
+
+    @Test
+    void findBookByTitle() throws Exception {
+        mockMvc.perform(get("/api/books/byTitle?title=Peppa Grunz")).andExpect(status().isOk());
+        mockMvc.perform(get("/api/books/byTitle?title=Lost")).andExpect(status().isNotFound());
+    }
 }

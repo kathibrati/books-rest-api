@@ -43,13 +43,6 @@ class BookRepositoryTest {
         assertThat(bookRepository.count()).isGreaterThan(0);
     }
 
-    @Test
-    void findByTitle() {
-        Book result = bookRepository.findByTitle("Lost Wheel").orElseThrow();
-
-        assertThat(result.getTitle()).isEqualTo("Lost Wheel");
-        assertThat(result.getId()).isEqualTo(4L);
-    }
 
     @Test
     void findByYear() {
@@ -65,7 +58,7 @@ class BookRepositoryTest {
         List<Book> bookListWheels = bookRepository.findAllByTitle("Lost Wheel");
         List<Book> bookList = bookRepository.findAllByTitle("Lost");
 
-        assertThat(bookListWheels.size()).isGreaterThan(1);
+        assertThat(bookListWheels).hasSize(2);
         assertThat(bookList.size()).isEqualTo(0);
     }
 

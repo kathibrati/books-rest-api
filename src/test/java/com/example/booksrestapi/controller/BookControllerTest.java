@@ -7,15 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.RequestBuilder;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -30,10 +25,17 @@ class BookControllerTest {
 
     @BeforeEach
     void setUp() {
-        Book peppaPig = new Book(1L, "Peppa Grunz", "Miss Piggy", "1985");
-        Book popelBert = new Book(2L, "Popel Bert", "Berti Fuchs", "1943");
-        bookRepository.save(peppaPig);
-        bookRepository.save(popelBert);
+        List<Book> books = List.of(Book.builder()
+                        .title("Peppa Grunz")
+                        .author("Miss Piggy")
+                        .year("1985")
+                        .build(),
+                Book.builder()
+                        .title("Popel Bert")
+                        .author("Berti Fuchs")
+                        .year("1973")
+                        .build());
+        bookRepository.saveAll(books);
     }
 
     @Test
